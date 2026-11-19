@@ -1,0 +1,4 @@
+{
+  "retry_timeout_ms": 2000,
+  "connection_pool_size": 10
+}

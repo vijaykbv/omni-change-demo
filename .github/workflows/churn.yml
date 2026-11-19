@@ -1,0 +1,20 @@
+name: churn
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Commit a small change
+        run: |
+          date -u > CHANGELOG_STAMP.txt
+          git config user.name "churn-bot"
+          git config user.email "churn-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: config bump $(date -u +%H:%M)" || echo "nothing to commit"
+          git push
